@@ -157,7 +157,7 @@ public class ArticleDetailFragment extends Fragment implements
         Toolbar mToolbar = mRootView.findViewById(R.id.detail_toolbar);
         if (mToolbar != null) {
             //  if (mRootView.findViewById(R.id.card) == null) {
-             mToolbar.setTitle("Test");
+        //     mToolbar.setTitle("Test");
           //    }
             mToolbar.setNavigationIcon(R.drawable.ic_arrow_back);
             mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
