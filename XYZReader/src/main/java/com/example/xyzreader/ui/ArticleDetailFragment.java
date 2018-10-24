@@ -214,6 +214,7 @@ public class ArticleDetailFragment extends Fragment implements
 
     private void bindViews() {
         if (mRootView == null) {
+            Log.d(getActivity().getLocalClassName(), "mRootView is null");
             return;
         }
 
@@ -296,14 +297,15 @@ public class ArticleDetailFragment extends Fragment implements
         }
 
         mCursor = cursor;
-        if (mCursor != null && !mCursor.moveToFirst()) {
+        if (cursor == null || cursor.isClosed() || !cursor.moveToFirst()) {
             Log.e(TAG, "Error reading item detail cursor");
             mCursor.close();
             mCursor = null;
-        }
-
+        }else{
+Log.d("cursor", "binding views");
         bindViews();
-    }
+        Log.d("cursor", "cursor load finished");
+    }}
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {

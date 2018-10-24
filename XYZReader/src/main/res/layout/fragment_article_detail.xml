@@ -113,7 +113,7 @@
                 android:layout_marginTop="@dimen/material_layout_keylines_screen_edge_margin"
                 android:autoLink="web"
                 android:linksClickable="true"
-                android:background="#FFF"
+                android:background="#F70"
                 android:paddingTop="@dimen/material_layout_keylines_screen_edge_margin"
                 android:textColor="@android:color/black" />
 
