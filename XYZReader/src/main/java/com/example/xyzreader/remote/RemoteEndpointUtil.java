@@ -43,24 +43,17 @@ public class RemoteEndpointUtil {
         return null;
     }
 
-   /* static String fetchPlainText(URL url) throws IOException {
-        OkHttpClient client = new OkHttpClient();
 
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-
-        Response response = client.newCall(request).execute();
-        return response.body().string();
-    }*/
 
 
 
     static String fetchPlainText(URL url) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+
         Request request = new Request.Builder()
                 .url(url)
                 .build();
-        OkHttpClient client = new OkHttpClient();
+
         Response response = client.newCall(request).execute();
         return response.body().string();
     }

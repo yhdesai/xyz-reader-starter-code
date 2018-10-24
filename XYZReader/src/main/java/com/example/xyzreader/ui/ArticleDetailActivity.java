@@ -78,6 +78,7 @@ public class ArticleDetailActivity extends AppCompatActivity
             }
         });
 
+
         mUpButtonContainer = findViewById(R.id.up_container);
 
         mUpButton = findViewById(R.id.action_up);
