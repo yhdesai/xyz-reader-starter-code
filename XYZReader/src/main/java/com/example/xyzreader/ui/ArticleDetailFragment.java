@@ -231,8 +231,8 @@ public class ArticleDetailFragment extends Fragment implements
             mRootView.animate().alpha(1);
             String mxyz = mCursor.getString(ArticleLoader.Query.TITLE);
             titleView.setText(mxyz);
-            /*Toolbar mToolbar = mRootView.findViewById(R.id.detail_toolbar);
-            mToolbar.setTitle(mxyz);*/
+            Toolbar mToolbar = mRootView.findViewById(R.id.detail_toolbar);
+            mToolbar.setTitle(mxyz);
             Date publishedDate = parsePublishedDate();
             if (!publishedDate.before(START_OF_EPOCH.getTime())) {
                 bylineView.setText(Html.fromHtml(
