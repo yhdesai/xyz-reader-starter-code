@@ -116,9 +116,15 @@
                 android:layout_marginTop="@dimen/material_layout_keylines_screen_edge_margin"
                 android:autoLink="web"
                 android:linksClickable="true"
-                android:background="#F70"
+                android:background="#F10"
                 android:paddingTop="@dimen/material_layout_keylines_screen_edge_margin"
                 android:textColor="@android:color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Show More"
+                android:id="@+id/more_tv"/>
 
         </LinearLayout>
 

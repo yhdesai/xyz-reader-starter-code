@@ -62,6 +62,7 @@ public class ArticleDetailFragment extends Fragment implements
     private int mScrollY;
     private boolean mIsCard = false;
     private int mStatusBarFullOpacityBottom;
+    String bodyText;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss");
     // Use default locale format
@@ -147,6 +148,19 @@ public class ArticleDetailFragment extends Fragment implements
         }
         bindViews();
         updateStatusBar();
+
+
+        TextView seeMore = (TextView) mRootView.findViewById(R.id.more_tv);
+        final String finalBodyText = bodyText;
+        seeMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Show all contents of the Article Text -
+                TextView bodyView = mRootView.findViewById(R.id.article_body);
+                bodyView.setText(Html.fromHtml(finalBodyText));
+            }
+        });
+
         return mRootView;
     }
 
@@ -162,7 +176,7 @@ public class ArticleDetailFragment extends Fragment implements
                     (int) (Color.blue(mMutedColor) * 0.9));
         }
         mStatusBarColorDrawable.setColor(color);
-           }
+    }
 
     static float progress(float v, float min, float max) {
         return constrain((v - min) / (max - min), 0, 1);
@@ -230,27 +244,13 @@ public class ArticleDetailFragment extends Fragment implements
                                 + "</font>"));
 
             }
-            bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY).replaceAll("(\r\n|\n)", "<br />")));
-            ImageLoaderHelper.getInstance(getActivity()).getImageLoader()
-                    .get(mCursor.getString(ArticleLoader.Query.PHOTO_URL), new ImageLoader.ImageListener() {
-                        @Override
-                        public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
-                            Bitmap bitmap = imageContainer.getBitmap();
-                            if (bitmap != null) {
-                                Palette p = Palette.generate(bitmap, 12);
-                                mMutedColor = p.getDarkMutedColor(0xFF333333);
-                                mPhotoView.setImageBitmap(imageContainer.getBitmap());
-                                mRootView.findViewById(R.id.meta_bar)
-                                        .setBackgroundColor(mMutedColor);
-                                updateStatusBar();
-                            }
-                        }
 
-                        @Override
-                        public void onErrorResponse(VolleyError volleyError) {
 
-                        }
-                    });
+            bodyText = mCursor.getString(ArticleLoader.Query.BODY).replaceAll("(\r\n|\n)", "<br />");
+            String shortBodyText = bodyText.substring(0, (bodyText.length() <= 400 ? bodyText.length() : 400));
+            bodyView.setText(Html.fromHtml(shortBodyText));
+
+
         } else {
             mRootView.setVisibility(View.GONE);
             titleView.setText("N/A");
