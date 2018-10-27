@@ -150,14 +150,18 @@ public class ArticleDetailFragment extends Fragment implements
         updateStatusBar();
 
 
-        TextView seeMore = (TextView) mRootView.findViewById(R.id.more_tv);
-        final String finalBodyText = bodyText;
+        TextView seeMore = mRootView.findViewById(R.id.more_tv);
+
         seeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Show all contents of the Article Text -
                 TextView bodyView = mRootView.findViewById(R.id.article_body);
+                String finalBodyText = bodyText;
                 bodyView.setText(Html.fromHtml(finalBodyText));
+
+                TextView showmore = mRootView.findViewById(R.id.more_tv);
+                showmore.setVisibility(View.GONE);
             }
         });
 
@@ -249,6 +253,26 @@ public class ArticleDetailFragment extends Fragment implements
             bodyText = mCursor.getString(ArticleLoader.Query.BODY).replaceAll("(\r\n|\n)", "<br />");
             String shortBodyText = bodyText.substring(0, (bodyText.length() <= 400 ? bodyText.length() : 400));
             bodyView.setText(Html.fromHtml(shortBodyText));
+            ImageLoaderHelper.getInstance(getActivity()).getImageLoader()
+                    .get(mCursor.getString(ArticleLoader.Query.PHOTO_URL), new ImageLoader.ImageListener() {
+                        @Override
+                        public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
+                            Bitmap bitmap = imageContainer.getBitmap();
+                            if (bitmap != null) {
+                                Palette p = Palette.generate(bitmap, 12);
+                                mMutedColor = p.getDarkMutedColor(0xFF333333);
+                                mPhotoView.setImageBitmap(imageContainer.getBitmap());
+                                mRootView.findViewById(R.id.meta_bar)
+                                        .setBackgroundColor(mMutedColor);
+                                updateStatusBar();
+                            }
+                        }
+
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+
+                        }
+                    });
 
 
         } else {

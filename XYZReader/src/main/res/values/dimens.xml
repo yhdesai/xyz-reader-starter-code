@@ -9,7 +9,7 @@
     <dimen name="fab_margin">24dp</dimen>
     <dimen name="app_bar_height">50dp</dimen>
     <dimen name="material_component_floating_action_button_margin">50dp</dimen>
-    <dimen name="floating_action_button_elevation">16dp</dimen>
+    <dimen name="floating_action_button_elevation">6dp</dimen>
     <dimen name="material_layout_keylines_screen_edge_margin">16dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="app_bar_elevation">4dp</dimen>

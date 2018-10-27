@@ -23,6 +23,12 @@
 
     <style name="Theme.Bacon.Detail">
         <item name="android:statusBarColor">@android:color/holo_blue_bright</item>
+
     </style>
 
+<style name="Main">
+    <item name="colorPrimary">@color/theme_primary</item>
+    <item name="colorPrimaryDark">@color/theme_primary_dark</item>
+    <item name="colorAccent">@color/theme_accent</item>
+</style>
 </resources>
