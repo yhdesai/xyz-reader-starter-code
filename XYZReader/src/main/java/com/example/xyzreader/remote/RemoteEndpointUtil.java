@@ -4,8 +4,6 @@ import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONTokener;
-
 import java.io.IOException;
 import java.net.URL;
 
@@ -30,16 +28,16 @@ public class RemoteEndpointUtil {
 
         // Parse JSON
         try {
-            JSONTokener tokener = new JSONTokener(itemsJson);
-            Object val = tokener.nextValue();
-            if (!(val instanceof JSONArray)) {
+            Log.d("json", "json parser started");
+            JSONArray jsonArray = new JSONArray(itemsJson);
+            if (!(jsonArray instanceof JSONArray)) {
                 throw new JSONException("Expected JSONArray");
             }
-            return (JSONArray) val;
+            Log.d("json", "json parser ended");
+            return jsonArray;
         } catch (JSONException e) {
             Log.e(TAG, "Error parsing items JSON", e);
         }
-
         return null;
     }
 
@@ -48,13 +46,14 @@ public class RemoteEndpointUtil {
 
 
     static String fetchPlainText(URL url) throws IOException {
+Log.d("http", "request started");
         OkHttpClient client = new OkHttpClient();
-
         Request request = new Request.Builder()
                 .url(url)
                 .build();
 
         Response response = client.newCall(request).execute();
+        Log.d("http", "request ended");
         return response.body().string();
     }
 }

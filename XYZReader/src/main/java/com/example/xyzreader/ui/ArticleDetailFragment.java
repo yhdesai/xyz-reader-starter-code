@@ -54,7 +54,6 @@ public class ArticleDetailFragment extends Fragment implements
     private View mRootView;
     private int mMutedColor = 0xFF333333;
     private NestedScrollView mScrollView;
-    // private DrawInsetsFrameLayout mDrawInsetsFrameLayout;
     private ColorDrawable mStatusBarColorDrawable;
 
     private int mTopInset;
@@ -120,25 +119,7 @@ public class ArticleDetailFragment extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
-       /* mDrawInsetsFrameLayout = (DrawInsetsFrameLayout)
-                mRootView.findViewById(R.id.draw_insets_frame_layout);
-        mDrawInsetsFrameLayout.setOnInsetsCallback(new DrawInsetsFrameLayout.OnInsetsCallback() {
-            @Override
-            public void onInsetsChanged(Rect insets) {
-                mTopInset = insets.top;
-            }
-        });*/
 
-      /* mScrollView = (NestedScrollView) mRootView.findViewById(R.id.movie_detail_container);
-        mScrollView.setCallbacks(new ObservableScrollView.Callbacks() {
-            @Override
-            public void onScrollChanged() {
-                mScrollY = mScrollView.getScrollY();
-                getActivityCast().onUpButtonFloorChanged(mItemId, ArticleDetailFragment.this);
-                mPhotoContainerView.setTranslationY((int) (mScrollY - mScrollY / PARALLAX_FACTOR));
-                updateStatusBar();
-            }
-        });*/
 
         mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
         mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
@@ -156,9 +137,6 @@ public class ArticleDetailFragment extends Fragment implements
         });
         Toolbar mToolbar = mRootView.findViewById(R.id.detail_toolbar);
         if (mToolbar != null) {
-            //  if (mRootView.findViewById(R.id.card) == null) {
-        //     mToolbar.setTitle("Test");
-          //    }
             mToolbar.setNavigationIcon(R.drawable.ic_arrow_back);
             mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
@@ -184,8 +162,7 @@ public class ArticleDetailFragment extends Fragment implements
                     (int) (Color.blue(mMutedColor) * 0.9));
         }
         mStatusBarColorDrawable.setColor(color);
-        //   mDrawInsetsFrameLayout.setInsetBackground(mStatusBarColorDrawable);
-    }
+           }
 
     static float progress(float v, float min, float max) {
         return constrain((v - min) / (max - min), 0, 1);
@@ -218,7 +195,7 @@ public class ArticleDetailFragment extends Fragment implements
             return;
         }
 
-        TextView titleView =  mRootView.findViewById(R.id.article_title);
+        TextView titleView = mRootView.findViewById(R.id.article_title);
         TextView bylineView = mRootView.findViewById(R.id.article_author);
         bylineView.setMovementMethod(new LinkMovementMethod());
         TextView bodyView = mRootView.findViewById(R.id.article_body);
@@ -301,11 +278,12 @@ public class ArticleDetailFragment extends Fragment implements
             Log.e(TAG, "Error reading item detail cursor");
             mCursor.close();
             mCursor = null;
-        }else{
-Log.d("cursor", "binding views");
-        bindViews();
-        Log.d("cursor", "cursor load finished");
-    }}
+        } else {
+            Log.d("cursor", "binding views");
+            bindViews();
+            Log.d("cursor", "cursor load finished");
+        }
+    }
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
